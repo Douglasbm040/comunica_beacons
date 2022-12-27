@@ -1,23 +1,26 @@
-import 'package:flutter/material.dart'; /*
+// ignore_for_file: unused_import
+
+import 'package:comunica_beacons/src/core/bluetooth/ble_interation.dart';
+import 'package:comunica_beacons/src/core/bluetooth/scanner.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
-import 'src/core/bluetooth/ble_Interation.dart';
 import 'src/core/bluetooth/ble_conect.dart';
-import 'src/core/bluetooth/ble_scanner.dart';*/
+import 'src/core/bluetooth/ble_scanner.dart';
 import 'app.dart';
 
 void main() {
-  /*final FlutterReactiveBle _ble = FlutterReactiveBle();
-  final BleConnector _conector = BleConnector(ble: _ble);
-  final BleScanner _scanner = BleScanner(ble: _ble);
-  final _interation = BleIntegration(
-      bleDiscoverServices: _ble.discoverServices,
-      readcharacteristic: _ble.readCharacteristic);*/
-  runApp(
-      /*MultiProvider(providers: [
-    Provider.value(value: _interation),
-    Provider.value(value: _conector),
-    Provider.value(value: _scanner)
-  ], child:*/
-      const App() /*)*/);
+  WidgetsFlutterBinding.ensureInitialized();
+  Provider.debugCheckInvalidValueType = null;
+  final FlutterReactiveBle _ble = FlutterReactiveBle();
+
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<Scan>(create: (context) => Scan(ble: _ble)),
+    ChangeNotifierProvider<BleConnector>(
+        create: ((context) => BleConnector(ble: _ble))),
+    ChangeNotifierProvider(
+        create: (context) => BleIntegration(
+            bleDiscoverServices: _ble.discoverServices,
+            readcharacteristic: _ble.readCharacteristic))
+  ], child: const App()));
 }

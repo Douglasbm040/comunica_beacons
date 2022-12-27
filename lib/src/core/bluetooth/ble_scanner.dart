@@ -3,30 +3,52 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 
 import 'Ble_state.dart';
 
-class BleScanner implements ReactiveState<BleScannerState> {
+class BleScanner /*implements ReactiveState<BleScannerState>*/ {
   BleScanner({required FlutterReactiveBle ble}) : _ble = ble;
 
   final FlutterReactiveBle _ble;
-
+/*
   final StreamController<BleScannerState> _stateStreamController =
-      StreamController();
+      StreamController();*/
 
-  final _devices = <DiscoveredDevice>[];
+  final devices = <DiscoveredDevice>[];
 
-  @override
-  Stream<BleScannerState> get state => _stateStreamController.stream;
+  /*@override
+  Stream<BleScannerState> get state => _stateStreamController.stream;*/
+  getsevices() {
+    return devices;
+  }
 
-  void startScan(List<Uuid> serviceIds) {
-    print('Start ble discovery');
-    _devices.clear();
-    _subscription?.cancel();
-    _subscription =
-        _ble.scanForDevices(withServices: serviceIds).listen((device) {
-      final knownDeviceIndex = _devices.indexWhere((d) => d.id == device.id);
-      if (knownDeviceIndex >= 0) {
-        _devices[knownDeviceIndex] = device;
+  Stream<DiscoveredDevice>? scannear() {
+    print("inicio");
+    _ble.scanForDevices(withServices: [], scanMode: ScanMode.lowLatency).listen(
+        (device) {
+      final deviceindex = devices.indexWhere((d) => d.id == device.id);
+      print("meio");
+      //print('device ' + device.name);
+      if (deviceindex >= 0) {
+        devices[deviceindex] = device;
+        print("meio 2");
       } else {
-        _devices.add(device);
+        devices.add(device);
+        print("meio 3");
+      }
+    }, onError: (Object e) {
+      print(e);
+    });
+    print(devices);
+  }
+/*
+  void startScan() {
+    print('Start ble discovery');
+    devices.clear();
+    _subscription?.cancel();
+    _subscription = _ble.scanForDevices(withServices: []).listen((device) {
+      final knownDeviceIndex = devices.indexWhere((d) => d.id == device.id);
+      if (knownDeviceIndex >= 0) {
+        devices[knownDeviceIndex] = device;
+      } else {
+        devices.add(device);
       }
       _pushState();
     }, onError: (Object e) => print('Device scan fails with error: $e'));
@@ -36,7 +58,7 @@ class BleScanner implements ReactiveState<BleScannerState> {
   void _pushState() {
     _stateStreamController.add(
       BleScannerState(
-        discoveredDevices: _devices,
+        discoveredDevices: devices,
         scanIsInProgress: _subscription != null,
       ),
     );
@@ -64,5 +86,5 @@ class BleScannerState {
   });
 
   final List<DiscoveredDevice> discoveredDevices;
-  final bool scanIsInProgress;
+  final bool scanIsInProgress;*/
 }

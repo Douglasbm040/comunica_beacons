@@ -1,6 +1,8 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'dart:convert' show utf8;
 
-class BleIntegration {
+class BleIntegration with ChangeNotifier {
   final Future<List<DiscoveredService>> Function(String deviceId)
       _bleDiscoverServices;
   final Future<List<int>> Function(QualifiedCharacteristic characteristic)
@@ -32,7 +34,8 @@ class BleIntegration {
     try {
       final result = await _readcharacteristic(characteristic);
 
-      print('Read ${characteristic.characteristicId}: value = $result');
+      print(
+          'Read ${characteristic.characteristicId}: value = ${utf8.decode(result)}');
       return result;
     } on Exception catch (e, s) {
       print(
