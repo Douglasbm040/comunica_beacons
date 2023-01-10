@@ -1,10 +1,10 @@
 import 'package:comunica_beacons/src/controllers/controller_blescan.txt';
-import 'package:comunica_beacons/src/controllers/controller_conectble.dart';
-import 'package:comunica_beacons/src/controllers/controller_scannerble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_conectble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_scannerble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
-import '../model/ble_device.dart';
+import '../../../shared/models/ble_device.dart';
 
 class HomePageUi extends StatelessWidget {
   const HomePageUi({
@@ -19,6 +19,16 @@ class HomePageUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: BottomNavigationBar(items: const [
+          BottomNavigationBarItem(
+              label: "sim",
+              icon: Icon(Icons.abc),
+              backgroundColor: Colors.orange),
+          BottomNavigationBarItem(
+              label: "NAO",
+              icon: Icon(Icons.abc_outlined),
+              backgroundColor: Colors.red)
+        ]),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               Provider.of<ControllerScannerBle>(context, listen: false)
@@ -37,6 +47,7 @@ class HomePageUi extends StatelessWidget {
                   trailing: ElevatedButton(
                     onPressed: () {
                       plug.connect(device.id);
+
                       Navigator.of(context).pushNamed("/comunication",
                           arguments: BleDevice(
                               name: device.name,

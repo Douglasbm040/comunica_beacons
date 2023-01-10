@@ -1,6 +1,6 @@
-import 'package:comunica_beacons/src/controllers/controller_interationble.dart';
-import 'package:comunica_beacons/src/controllers/controller_conectble.dart';
-import 'package:comunica_beacons/src/controllers/controller_scannerble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_interationble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_conectble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_scannerble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +18,7 @@ void main() {
         create: ((context) => ControllerConnectorBle(ble: _ble))),
     ChangeNotifierProvider(
         create: (context) => ControllerIntegrationBle(
+            writeWithoutResponse: _ble.writeCharacteristicWithoutResponse,
             bleDiscoverServices: _ble.discoverServices,
             readcharacteristic: _ble.readCharacteristic))
   ], child: const App()));

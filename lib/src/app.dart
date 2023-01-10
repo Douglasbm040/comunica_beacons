@@ -1,5 +1,5 @@
-import 'package:comunica_beacons/src/screens/comunication_page.dart';
-import 'package:comunica_beacons/src/screens/home_page.dart';
+import 'package:comunica_beacons/src/modules/chat/page/comunication_page.dart';
+import 'package:comunica_beacons/src/modules/home/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {

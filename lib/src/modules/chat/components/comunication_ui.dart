@@ -2,14 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import '../controllers/controller_interationble.dart';
-import '../model/ble_device.dart';
+import '../../bluetoothble/controllers/controller_interationble.dart';
+import '../../../shared/models/ble_device.dart';
 
 class ComunicationUI extends StatefulWidget {
   const ComunicationUI({
     Key? key,
     required this.comunication,
   }) : super(key: key);
+
   final ControllerIntegrationBle comunication;
 
   @override
@@ -27,6 +28,17 @@ class _ComunicationUIState extends State<ComunicationUI> {
     final deviceconected =
         ModalRoute.of(context)!.settings.arguments as BleDevice;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget.comunication.writeCharacterisiticWithoutResponse(
+              QualifiedCharacteristic(
+                  characteristicId: _myCharacteristicUuid,
+                  serviceId: _myServiceUuid,
+                  deviceId: deviceconected.id),
+          utf8.encode("olaa mundo"));
+        },
+        child: const Icon(Icons.send),
+      ),
       appBar: AppBar(
           title: ListTile(
         textColor: Colors.white,

@@ -7,15 +7,21 @@ class ControllerIntegrationBle with ChangeNotifier {
       _bleDiscoverServices;
   final Future<List<int>> Function(QualifiedCharacteristic characteristic)
       _readcharacteristic;
+      final Future<void> Function(QualifiedCharacteristic characteristic,
+      {required List<int> value}) _writeWithoutResponse;
 
-  ControllerIntegrationBle(
-      {required Future<List<DiscoveredService>> Function(String deviceId)
+  ControllerIntegrationBle({
+    required Future<void> Function(QualifiedCharacteristic characteristic,
+            {required List<int> value})
+        writeWithoutResponse,
+      required Future<List<DiscoveredService>> Function(String deviceId)
           bleDiscoverServices,
       required Future<List<int>> Function(
               QualifiedCharacteristic characteristic)
           readcharacteristic})
       : _bleDiscoverServices = bleDiscoverServices,
-        _readcharacteristic = readcharacteristic;
+        _readcharacteristic = readcharacteristic,
+        _writeWithoutResponse = writeWithoutResponse;
 
   Future<List<DiscoveredService>> discoverServices(String deviceId) async {
     try {
@@ -46,4 +52,20 @@ class ControllerIntegrationBle with ChangeNotifier {
       rethrow;
     }
   }
+  Future<void> writeCharacterisiticWithoutResponse(
+      QualifiedCharacteristic characteristic, List<int> value) async {
+    try {
+      await _writeWithoutResponse(characteristic, value: value);
+      print(
+          'Write without response value: $value to ${characteristic.characteristicId}');
+    } on Exception catch (e, s) {
+      print(
+        'Error occured when writing ${characteristic.characteristicId} : $e',
+      );
+      // ignore: avoid_print
+      print(s);
+      rethrow;
+    }
+  }
+
 }

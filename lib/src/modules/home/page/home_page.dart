@@ -1,8 +1,8 @@
-import 'package:comunica_beacons/src/controllers/controller_conectble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_conectble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:comunica_beacons/src/controllers/controller_scannerble.dart';
-import '../widget/homepage_ui.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_scannerble.dart';
+import '../components/homepage_ui.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
