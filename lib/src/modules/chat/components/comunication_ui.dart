@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import '../../bluetoothble/controllers/controller_interationble.dart';
+import '../../bluetoothble/services/interationble_service.dart';
 import '../../../shared/models/ble_device.dart';
 
 class ComunicationUI extends StatefulWidget {
@@ -11,7 +11,7 @@ class ComunicationUI extends StatefulWidget {
     required this.comunication,
   }) : super(key: key);
 
-  final ControllerIntegrationBle comunication;
+  final IntegrationBleService comunication;
 
   @override
   State<ComunicationUI> createState() => _ComunicationUIState();

@@ -8,3 +8,5 @@ class BleDevice {
     required this.rssi,
   });
 }
+
+

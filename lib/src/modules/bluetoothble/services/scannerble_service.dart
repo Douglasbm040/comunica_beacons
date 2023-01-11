@@ -2,15 +2,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 
-class ControllerScannerBle extends ChangeNotifier {
+class ScannerBleService extends ChangeNotifier {
   List<DiscoveredDevice> devices = [];
 
-  ControllerScannerBle({
+  ScannerBleService({
     required FlutterReactiveBle ble,
   }) : _ble = ble;
 
   final FlutterReactiveBle _ble;
-  scannner() {
+  scanner() {
     _ble.scanForDevices(withServices: [], scanMode: ScanMode.lowLatency).listen(
         (device) {
       final deviceindex = devices.indexWhere((d) => d.id == device.id);

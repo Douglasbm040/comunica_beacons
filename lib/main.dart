@@ -1,6 +1,6 @@
-import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_interationble.dart';
-import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_conectble.dart';
-import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_scannerble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/services/interationble_service.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/services/conectble_service.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/services/scannerble_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
@@ -12,12 +12,12 @@ void main() {
   final FlutterReactiveBle _ble = FlutterReactiveBle();
 
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<ControllerScannerBle>(
-        create: (context) => ControllerScannerBle(ble: _ble)),
-    ChangeNotifierProvider<ControllerConnectorBle>(
-        create: ((context) => ControllerConnectorBle(ble: _ble))),
+    ChangeNotifierProvider<ScannerBleService>(
+        create: (context) => ScannerBleService(ble: _ble)),
+    ChangeNotifierProvider<ConnectorBleService>(
+        create: ((context) => ConnectorBleService(ble: _ble))),
     ChangeNotifierProvider(
-        create: (context) => ControllerIntegrationBle(
+        create: (context) => IntegrationBleService(
             writeWithoutResponse: _ble.writeCharacteristicWithoutResponse,
             bleDiscoverServices: _ble.discoverServices,
             readcharacteristic: _ble.readCharacteristic))

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 
-class ControllerConnectorBle with ChangeNotifier {
-  ControllerConnectorBle({
+class ConnectorBleService with ChangeNotifier {
+  ConnectorBleService({
     required FlutterReactiveBle ble,
   }) : _ble = ble;
 

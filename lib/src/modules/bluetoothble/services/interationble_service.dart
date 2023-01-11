@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:convert' show utf8;
 
-class ControllerIntegrationBle with ChangeNotifier {
+class IntegrationBleService with ChangeNotifier {
   final Future<List<DiscoveredService>> Function(String deviceId)
       _bleDiscoverServices;
   final Future<List<int>> Function(QualifiedCharacteristic characteristic)
@@ -10,7 +10,7 @@ class ControllerIntegrationBle with ChangeNotifier {
       final Future<void> Function(QualifiedCharacteristic characteristic,
       {required List<int> value}) _writeWithoutResponse;
 
-  ControllerIntegrationBle({
+  IntegrationBleService({
     required Future<void> Function(QualifiedCharacteristic characteristic,
             {required List<int> value})
         writeWithoutResponse,

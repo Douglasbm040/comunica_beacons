@@ -1,7 +1,7 @@
-import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_conectble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/services/conectble_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_scannerble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/services/scannerble_service.dart';
 import '../components/homepage_ui.dart';
 
 class Homepage extends StatelessWidget {
@@ -9,7 +9,7 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<ControllerScannerBle, ControllerConnectorBle>(
+    return Consumer2<ScannerBleService, ConnectorBleService>(
       builder: (context, Scanner, swicthconection, __) => HomePageUi(
         devices: Scanner.devices,
         plug: swicthconection,

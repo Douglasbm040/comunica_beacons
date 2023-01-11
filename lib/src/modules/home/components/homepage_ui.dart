@@ -1,6 +1,5 @@
-import 'package:comunica_beacons/src/controllers/controller_blescan.txt';
-import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_conectble.dart';
-import 'package:comunica_beacons/src/modules/bluetoothble/controllers/controller_scannerble.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/services/conectble_service.dart';
+import 'package:comunica_beacons/src/modules/bluetoothble/services/scannerble_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,7 @@ class HomePageUi extends StatelessWidget {
   }) : super(key: key);
 
   final List<DiscoveredDevice> devices;
-  final ControllerConnectorBle plug;
+  final ConnectorBleService plug;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,8 @@ class HomePageUi extends StatelessWidget {
         ]),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Provider.of<ControllerScannerBle>(context, listen: false)
-                  .scannner();
+              Provider.of<ScannerBleService>(context, listen: false)
+                  .scanner();
             },
             child: const Icon(Icons.search)),
         appBar: AppBar(
