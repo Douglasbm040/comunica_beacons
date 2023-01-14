@@ -10,8 +10,8 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ScannerBleService, ConnectorBleService>(
-      builder: (context, Scanner, swicthconection, __) => HomePageUi(
-        devices: Scanner.devices,
+      builder: (context, scanner, swicthconection, __) => HomePageUi(
+        devices: scanner.devices,
         plug: swicthconection,
       ),
     );

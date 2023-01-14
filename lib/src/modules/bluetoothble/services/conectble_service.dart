@@ -9,7 +9,6 @@ class ConnectorBleService with ChangeNotifier {
 
   final FlutterReactiveBle _ble;
 
-  @override
   Stream<ConnectionStateUpdate> get state => _deviceConnectionController.stream;
 
   final _deviceConnectionController = StreamController<ConnectionStateUpdate>();

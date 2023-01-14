@@ -3,17 +3,23 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:convert' show utf8;
 
 class IntegrationBleService with ChangeNotifier {
+  final Future<int> Function({required String deviceId, required int mtu})
+      _resquestSpace;
+
   final Future<List<DiscoveredService>> Function(String deviceId)
       _bleDiscoverServices;
   final Future<List<int>> Function(QualifiedCharacteristic characteristic)
       _readcharacteristic;
-      final Future<void> Function(QualifiedCharacteristic characteristic,
+  final Future<void> Function(QualifiedCharacteristic characteristic,
       {required List<int> value}) _writeWithoutResponse;
 
-  IntegrationBleService({
-    required Future<void> Function(QualifiedCharacteristic characteristic,
-            {required List<int> value})
-        writeWithoutResponse,
+  IntegrationBleService(
+      {required Future<void> Function(QualifiedCharacteristic characteristic,
+              {required List<int> value})
+          writeWithoutResponse,
+      required Future<int> Function(
+              {required String deviceId, required int mtu})
+          requestSpace,
       required Future<List<DiscoveredService>> Function(String deviceId)
           bleDiscoverServices,
       required Future<List<int>> Function(
@@ -21,7 +27,8 @@ class IntegrationBleService with ChangeNotifier {
           readcharacteristic})
       : _bleDiscoverServices = bleDiscoverServices,
         _readcharacteristic = readcharacteristic,
-        _writeWithoutResponse = writeWithoutResponse;
+        _writeWithoutResponse = writeWithoutResponse,
+        _resquestSpace = requestSpace;
 
   Future<List<DiscoveredService>> discoverServices(String deviceId) async {
     try {
@@ -52,6 +59,7 @@ class IntegrationBleService with ChangeNotifier {
       rethrow;
     }
   }
+
   Future<void> writeCharacterisiticWithoutResponse(
       QualifiedCharacteristic characteristic, List<int> value) async {
     try {
@@ -68,4 +76,14 @@ class IntegrationBleService with ChangeNotifier {
     }
   }
 
+  //Future<int> Function({required String deviceId, required int mtu})
+  Future<int> requestMtu(String deviceId, int mtu) async {
+    try {
+      final resultado = await _resquestSpace(deviceId: deviceId, mtu: mtu);
+      return resultado;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 }

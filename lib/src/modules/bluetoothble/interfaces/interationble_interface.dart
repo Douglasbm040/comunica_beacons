@@ -4,4 +4,5 @@ abstract class InterationBleInterface {
   Future<List<DiscoveredService>> discoverServices();
   Future<List<int>> readCharacteristic();
   Future<void> writeCharacterisiticWithoutResponse();
+  Future<void> requestMtu();
 }
