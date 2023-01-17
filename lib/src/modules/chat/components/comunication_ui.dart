@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import '../../bluetoothble/services/interationble_service.dart';
-import '../../../shared/models/ble_device.dart';
+import '../../../shared/models/ble_device_models.dart';
 
 class ComunicationUI extends StatefulWidget {
   const ComunicationUI({
