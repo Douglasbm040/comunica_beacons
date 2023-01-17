@@ -79,8 +79,7 @@ class HomePageUi extends StatelessWidget {
                                     context,
                                     listen: false)
                                 .device;
-                            final device =
-                                Device(deviceName: request["deviceName"]);
+                           
                           },
                           icon: const Icon(
                             size: 50,
