@@ -4,11 +4,11 @@ import 'package:comunica_beacons/src/modules/database/firebase/interface/firebas
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-import 'firestore_repository.dart';
+import 'package:firebase_core/firebase_core.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+enum StateRequisition { erro, correct, notrequest }
 
-
-
-class FirebaseRepository extends ChangeNotifier implements FirebaseInterface {
+class FirebaseStoreRepository extends ChangeNotifier implements FirebaseInterface {
   Map _device = {};
   StateRequisition _state = StateRequisition.notrequest;
   final DatabaseReference _dataRef = FirebaseDatabase.instance.ref("Device");
@@ -30,11 +30,6 @@ class FirebaseRepository extends ChangeNotifier implements FirebaseInterface {
     });
   }
 
-  /*
-  insert({required Map<String, dynamic> value}) async {
-    await _dataRef.set(value);
-  }
-*/
   void dispose() {
     _dataSubscription.cancel();
     super.dispose();
